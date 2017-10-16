@@ -1,5 +1,4 @@
 import json
-import difflib
 from difflib import get_close_matches
 
 
@@ -9,9 +8,14 @@ def translate(word, dict):
             print(f"- {value}")
     elif get_close_matches(key, dict.keys(), cutoff=0.75):
         possibleKeys = get_close_matches(key, data.keys(), cutoff=0.75)
-        print(f"Did You mean {possibleKeys[0]}?")
-        for value in dict[possibleKeys[0]]:
-            print(f"- {value}")
+        yesNo = input(f"Did You mean {possibleKeys[0]}? yes/no\n").lower()
+        if yesNo == 'yes' or yesNo == 'y':
+            for value in dict[possibleKeys[0]]:
+                print(f"- {value}")
+        elif:
+            print("The word doesn't exist. Please try again.")
+        else:
+            print("Incorrect input.")
     else:
         print("The word doesn't exist. Please try again.")
 
