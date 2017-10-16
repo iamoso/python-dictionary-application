@@ -1,10 +1,12 @@
 import json
+import difflib
+from difflib import get_close_matches
 
 
 def translate(word, dict):
     return dict[word]
 
-data = json.load(open("data.json"))
+data = json.load(open('data.json'))
 
 while True:
     try:
@@ -12,4 +14,10 @@ while True:
         print(translate(key, data))
         break
     except KeyError:
-        print("There's no such key. Please try again.")
+        possibleKeys = get_close_matches(key, data.keys())
+        if not possibleKeys:
+            print("The word doesn't exist. Please try again.")
+        else:
+            print(f"The word doesn't exist. Did You mean {possibleKeys[0]}?")
+            print(translate(possibleKeys[0], data))
+            break
